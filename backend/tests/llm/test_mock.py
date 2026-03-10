@@ -56,3 +56,16 @@ class TestMockChat:
         result = mock_chat("add TSLA to my watchlist", {})
         assert len(result.watchlist_changes) == 1
         assert result.watchlist_changes[0].ticker == "TSLA"
+        assert result.watchlist_changes[0].action == "add"
+
+    def test_remove_from_watchlist(self):
+        result = mock_chat("remove AAPL from watchlist", {})
+        assert len(result.watchlist_changes) == 1
+        assert result.watchlist_changes[0].ticker == "AAPL"
+        assert result.watchlist_changes[0].action == "remove"
+
+    def test_unwatch_ticker(self):
+        result = mock_chat("unwatch TSLA", {})
+        assert len(result.watchlist_changes) == 1
+        assert result.watchlist_changes[0].ticker == "TSLA"
+        assert result.watchlist_changes[0].action == "remove"

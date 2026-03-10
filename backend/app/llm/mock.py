@@ -29,9 +29,18 @@ def mock_chat(user_message: str, context: dict) -> LlmResponse:
             trades=[TradeAction(ticker=ticker, side="sell", quantity=qty)],
         )
 
+    # Remove from watchlist: "remove AAPL from watchlist" or "unwatch AAPL"
+    remove_match = re.search(r"(?:remove|unwatch)\s+(\w+)", msg)
+    if remove_match and ("watchlist" in msg or msg.startswith("unwatch ")):
+        ticker = remove_match.group(1).upper()
+        return LlmResponse(
+            message=f"Removing {ticker} from your watchlist.",
+            watchlist_changes=[WatchlistChange(ticker=ticker, action="remove")],
+        )
+
     # Add to watchlist: "watch PYPL" or "add PYPL to watchlist"
     watch_match = re.search(r"(?:watch|add)\s+(\w+)", msg)
-    if watch_match and "watchlist" in msg or msg.startswith("watch "):
+    if watch_match and ("watchlist" in msg or msg.startswith("watch ")):
         ticker = watch_match.group(1).upper()
         return LlmResponse(
             message=f"Adding {ticker} to your watchlist.",

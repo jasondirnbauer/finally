@@ -7,11 +7,22 @@ $Port = 8000
 
 Set-Location (Split-Path $PSScriptRoot)
 
+# Verify Docker is running
+try {
+    docker info 2>$null | Out-Null
+} catch {
+    Write-Host "Error: Docker is not running. Please start Docker Desktop and try again." -ForegroundColor Red
+    exit 1
+}
+
 # Build if image doesn't exist or --build flag passed
 $shouldBuild = $args -contains "--build"
 if (-not $shouldBuild) {
-    $imageExists = docker image inspect $ImageName 2>$null
-    if (-not $imageExists) { $shouldBuild = $true }
+    try {
+        docker image inspect $ImageName 2>$null | Out-Null
+    } catch {
+        $shouldBuild = $true
+    }
 }
 if ($shouldBuild) {
     Write-Host "Building Docker image..."
