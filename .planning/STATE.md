@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-14T01:31:57.306Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-14T01:50:26.234Z"
 last_activity: 2026-03-13 — Roadmap created, 27 requirements mapped across 5 phases
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01-backend-hardening P02 | 12 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,8 @@ Recent decisions affecting current work:
 - [Phase 01]: TradeResult is a plain dataclass (not Pydantic) — sufficient for internal service boundary
 - [Phase 01]: WAL pragma moved exclusively to init_db() — eliminates per-connection overhead
 - [Phase 01]: Snapshot recorded after commit on separate connection — snapshot failure must not roll back the trade
+- [Phase 01-backend-hardening]: TradeService injected via app.state (not route parameters) — consistent with price_cache and market_source pattern
+- [Phase 01-backend-hardening]: acompletion (async) replaces completion (sync) in llm/service.py — event loop unblocked during LLM calls
 
 ### Pending Todos
 
@@ -75,6 +78,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T01:31:49.361Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-03-14T01:50:26.231Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None

@@ -13,7 +13,7 @@ The market data subsystem is already complete (Phase 0 — done). The remaining 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Market Data** - GBM simulator, PriceCache, SSE stream, Massive API — COMPLETE
-- [ ] **Phase 1: Backend Hardening** - Fix race condition, extract TradeService, wire LLM watchlist, add snapshot task
+- [x] **Phase 1: Backend Hardening** - Fix race condition, extract TradeService, wire LLM watchlist, add snapshot task (completed 2026-03-14)
 - [ ] **Phase 2: Frontend Shell + Streaming** - Next.js project, dark terminal layout, SSE hook, watchlist panel, header
 - [ ] **Phase 3: Trading + Portfolio Visualization** - Trade bar, positions table, price chart, heatmap, P&L chart, sparklines
 - [ ] **Phase 4: AI Chat** - Chat panel, LLM integration, inline trade/watchlist confirmations, loading state
@@ -93,7 +93,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Market Data | - | Complete | 2026-03-13 |
-| 1. Backend Hardening | 1/2 | In Progress|  |
+| 1. Backend Hardening | 2/2 | Complete   | 2026-03-14 |
 | 2. Frontend Shell + Streaming | 0/TBD | Not started | - |
 | 3. Trading + Portfolio Visualization | 0/TBD | Not started | - |
 | 4. AI Chat | 0/TBD | Not started | - |
