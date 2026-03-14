@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-14T01:12:32.705Z"
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-03-14T01:31:57.306Z"
 last_activity: 2026-03-13 — Roadmap created, 27 requirements mapped across 5 phases
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -60,6 +60,9 @@ Recent decisions affecting current work:
 
 - Phase 0: SSE over WebSockets — one-way push is sufficient, simpler, universal browser support
 - Phase 0: uv for Python — modern, fast, reproducible lockfile
+- [Phase 01]: TradeResult is a plain dataclass (not Pydantic) — sufficient for internal service boundary
+- [Phase 01]: WAL pragma moved exclusively to init_db() — eliminates per-connection overhead
+- [Phase 01]: Snapshot recorded after commit on separate connection — snapshot failure must not roll back the trade
 
 ### Pending Todos
 
@@ -72,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T01:12:32.701Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-backend-hardening/01-CONTEXT.md
+Last session: 2026-03-14T01:31:49.361Z
+Stopped at: Completed 01-01-PLAN.md
+Resume file: None

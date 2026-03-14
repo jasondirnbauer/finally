@@ -7,10 +7,10 @@
 
 ### Backend Hardening
 
-- [ ] **BACK-01**: Trade execution wrapped in single-connection BEGIN IMMEDIATE transaction to prevent race conditions
-- [ ] **BACK-02**: Trade logic extracted into shared TradeService used by both portfolio route and LLM service
+- [x] **BACK-01**: Trade execution wrapped in single-connection BEGIN IMMEDIATE transaction to prevent race conditions
+- [x] **BACK-02**: Trade logic extracted into shared TradeService used by both portfolio route and LLM service
 - [ ] **BACK-03**: LLM watchlist changes synced to MarketDataSource (add_ticker/remove_ticker)
-- [ ] **BACK-04**: Portfolio snapshot background task records total value every 30 seconds and immediately after each trade
+- [x] **BACK-04**: Portfolio snapshot background task records total value every 30 seconds and immediately after each trade
 
 ### Real-Time Display
 
@@ -90,10 +90,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BACK-01 | Phase 1 | Pending |
-| BACK-02 | Phase 1 | Pending |
+| BACK-01 | Phase 1 | Complete |
+| BACK-02 | Phase 1 | Complete |
 | BACK-03 | Phase 1 | Pending |
-| BACK-04 | Phase 1 | Pending |
+| BACK-04 | Phase 1 | Complete |
 | DISP-01 | Phase 2 | Pending |
 | DISP-02 | Phase 2 | Pending |
 | DISP-03 | Phase 3 | Pending |
