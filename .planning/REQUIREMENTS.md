@@ -14,8 +14,8 @@
 
 ### Real-Time Display
 
-- [ ] **DISP-01**: Watchlist panel shows all watched tickers with current price, change amount, and change %
-- [ ] **DISP-02**: Price flash animations — green highlight on uptick, red on downtick, fading over ~500ms via CSS transitions
+- [x] **DISP-01**: Watchlist panel shows all watched tickers with current price, change amount, and change %
+- [x] **DISP-02**: Price flash animations — green highlight on uptick, red on downtick, fading over ~500ms via CSS transitions
 - [x] **DISP-03**: Sparkline mini-charts beside each ticker, accumulated from SSE data since page load
 - [x] **DISP-04**: Connection status indicator in header — green (connected), yellow (reconnecting), red (disconnected)
 - [x] **DISP-05**: Header displays portfolio total value, cash balance, updating live from SSE + portfolio API
@@ -94,8 +94,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BACK-02 | Phase 1 | Complete |
 | BACK-03 | Phase 1 | Complete |
 | BACK-04 | Phase 1 | Complete |
-| DISP-01 | Phase 2 | Pending |
-| DISP-02 | Phase 2 | Pending |
+| DISP-01 | Phase 2 | Complete |
+| DISP-02 | Phase 2 | Complete |
 | DISP-03 | Phase 3 | Complete |
 | DISP-04 | Phase 2 | Complete |
 | DISP-05 | Phase 2 | Complete |
@@ -125,4 +125,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-13 after roadmap creation — traceability populated*
+*Last updated: 2026-03-14 — DISP-01, DISP-02 marked complete (Phase 2 Plan 03)*

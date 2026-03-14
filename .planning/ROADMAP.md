@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Market Data** - GBM simulator, PriceCache, SSE stream, Massive API — COMPLETE
 - [x] **Phase 1: Backend Hardening** - Fix race condition, extract TradeService, wire LLM watchlist, add snapshot task (completed 2026-03-14)
-- [ ] **Phase 2: Frontend Shell + Streaming** - Next.js project, dark terminal layout, SSE hook, watchlist panel, header
+- [x] **Phase 2: Frontend Shell + Streaming** - Next.js project, dark terminal layout, SSE hook, watchlist panel, header (completed 2026-03-14)
 - [ ] **Phase 3: Trading + Portfolio Visualization** - Trade bar, positions table, price chart, heatmap, P&L chart, sparklines
 - [ ] **Phase 4: AI Chat** - Chat panel, LLM integration, inline trade/watchlist confirmations, loading state
 - [ ] **Phase 5: Docker + Testing** - Multi-stage Dockerfile, start/stop scripts, backend unit tests, frontend unit tests, Playwright E2E
@@ -49,9 +49,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Scaffold Next.js project: static export config, Tailwind dark theme, shared types, format helpers, API wrappers, Jest setup
-- [ ] 02-02-PLAN.md — Build usePriceStream SSE hook, PriceContext with portfolio polling, terminal shell page layout
-- [ ] 02-03-PLAN.md — Build Header (connection dot, portfolio display) and Watchlist (price flash animation, ticker rows) with unit tests
+- [x] 02-01-PLAN.md — Scaffold Next.js project: static export config, Tailwind dark theme, shared types, format helpers, API wrappers, Jest setup
+- [x] 02-02-PLAN.md — Build usePriceStream SSE hook, PriceContext with portfolio polling, terminal shell page layout
+- [x] 02-03-PLAN.md — Build Header (connection dot, portfolio display) and Watchlist (price flash animation, ticker rows) with unit tests
 
 ### Phase 3: Trading + Portfolio Visualization
 **Goal**: Users can trade, monitor their positions in a visual heatmap, and see their portfolio P&L history — the full core trading experience
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 0. Market Data | - | Complete | 2026-03-13 |
 | 1. Backend Hardening | 2/2 | Complete   | 2026-03-14 |
-| 2. Frontend Shell + Streaming | 0/3 | Not started | - |
+| 2. Frontend Shell + Streaming | 3/3 | Complete | 2026-03-14 |
 | 3. Trading + Portfolio Visualization | 0/TBD | Not started | - |
 | 4. AI Chat | 0/TBD | Not started | - |
 | 5. Docker + Testing | 0/TBD | Not started | - |
