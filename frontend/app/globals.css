@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Price flash animations */
+.flash-green {
+  background-color: rgba(34, 197, 94, 0.25);
+  transition: background-color 500ms ease-out;
+}
+.flash-red {
+  background-color: rgba(239, 68, 68, 0.25);
+  transition: background-color 500ms ease-out;
+}
+/* Fade back to transparent when class removed */
+.flash-none {
+  background-color: transparent;
+  transition: background-color 500ms ease-out;
+}
+
+/* Monospace numbers everywhere */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
