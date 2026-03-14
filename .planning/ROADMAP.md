@@ -30,7 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Calling POST /api/portfolio/trade and triggering an LLM trade both execute through the same TradeService code path with no duplication
   3. When the LLM adds or removes a ticker from the watchlist, the live price stream immediately includes or stops including that ticker
   4. Portfolio value is recorded in portfolio_snapshots every 30 seconds and within 1 second of any trade execution
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Create TradeService with atomic transaction, snapshot, watchlist sync + full TDD test suite
+- [ ] 01-02-PLAN.md — Wire TradeService into portfolio route, LLM service, and main.py; fix async LLM call
 
 ### Phase 2: Frontend Shell + Streaming
 **Goal**: Users see a dark trading terminal in their browser with live-streaming prices the moment they open it
@@ -89,7 +93,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Market Data | - | Complete | 2026-03-13 |
-| 1. Backend Hardening | 0/TBD | Not started | - |
+| 1. Backend Hardening | 0/2 | Planned | - |
 | 2. Frontend Shell + Streaming | 0/TBD | Not started | - |
 | 3. Trading + Portfolio Visualization | 0/TBD | Not started | - |
 | 4. AI Chat | 0/TBD | Not started | - |
