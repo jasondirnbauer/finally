@@ -2,6 +2,7 @@
 
 import os
 import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
 import aiosqlite
@@ -32,15 +33,34 @@ async def get_connection() -> aiosqlite.Connection:
     """Open a connection to the database."""
     db = await aiosqlite.connect(get_db_path())
     db.row_factory = aiosqlite.Row
-    await db.execute("PRAGMA journal_mode=WAL")
     await db.execute("PRAGMA foreign_keys=ON")
     return db
+
+
+@asynccontextmanager
+async def get_db_transaction():
+    """Open a connection and begin a BEGIN IMMEDIATE transaction.
+
+    Commits on clean exit, rolls back on exception. Use for all write operations
+    that must be atomic (e.g., trade execution).
+    """
+    async with aiosqlite.connect(get_db_path()) as db:
+        db.row_factory = aiosqlite.Row
+        await db.execute("BEGIN IMMEDIATE")
+        try:
+            yield db
+            await db.commit()
+        except Exception:
+            await db.rollback()
+            raise
 
 
 async def init_db() -> None:
     """Create tables and seed default data if needed."""
     db = await get_connection()
     try:
+        await db.execute("PRAGMA journal_mode=WAL")
+        await db.execute("PRAGMA busy_timeout=5000")
         await db.executescript(SCHEMA_SQL)
 
         # Check if default user exists
