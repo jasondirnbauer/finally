@@ -19,12 +19,13 @@ class ChatRequest(BaseModel):
 async def chat(body: ChatRequest, request: Request):
     """Send a message to the AI assistant."""
     price_cache = request.app.state.price_cache
+    trade_service = request.app.state.trade_service
 
     # Store user message
     await insert_chat_message(role="user", content=body.message)
 
     # Get LLM response and execute actions
-    result = await chat_with_llm(body.message, price_cache)
+    result = await chat_with_llm(body.message, price_cache, trade_service)
 
     # Store assistant response with actions
     actions = None

@@ -3,21 +3,13 @@
 import logging
 import os
 
-from litellm import completion
+from litellm import acompletion
 
 from app.db import (
-    add_to_watchlist,
-    delete_position,
     get_cash_balance,
     get_chat_history,
-    get_position,
     get_positions,
     get_watchlist,
-    insert_snapshot,
-    insert_trade,
-    remove_from_watchlist,
-    update_cash_balance,
-    upsert_position,
 )
 from app.market import PriceCache
 
@@ -123,7 +115,7 @@ def _build_messages(context: dict, history: list[dict], user_message: str) -> li
 
 
 async def _execute_actions(
-    llm_response: LlmResponse, price_cache: PriceCache
+    llm_response: LlmResponse, price_cache: PriceCache, trade_service
 ) -> dict:
     """Execute trades and watchlist changes from LLM response. Returns results."""
     trade_results = []
@@ -138,93 +130,40 @@ async def _execute_actions(
             trade_results.append({"ticker": ticker, "side": side, "error": "Invalid trade parameters"})
             continue
 
-        current_price = price_cache.get_price(ticker)
-        if current_price is None:
-            trade_results.append({"ticker": ticker, "side": side, "error": f"No price available for {ticker}"})
-            continue
-
-        cash = await get_cash_balance()
-
-        if side == "buy":
-            cost = current_price * quantity
-            if cost > cash:
-                trade_results.append({
-                    "ticker": ticker, "side": "buy",
-                    "error": f"Insufficient cash. Need ${cost:.2f}, have ${cash:.2f}",
-                })
-                continue
-
-            await update_cash_balance(cash - cost)
-            existing = await get_position(ticker)
-            if existing:
-                total_qty = existing["quantity"] + quantity
-                total_cost = (existing["avg_cost"] * existing["quantity"]) + cost
-                new_avg = total_cost / total_qty
-                await upsert_position(ticker, total_qty, new_avg)
-            else:
-                await upsert_position(ticker, quantity, current_price)
-
-        else:  # sell
-            existing = await get_position(ticker)
-            if not existing or existing["quantity"] < quantity:
-                held = existing["quantity"] if existing else 0
-                trade_results.append({
-                    "ticker": ticker, "side": "sell",
-                    "error": f"Insufficient shares. Have {held}, trying to sell {quantity}",
-                })
-                continue
-
-            proceeds = current_price * quantity
-            await update_cash_balance(cash + proceeds)
-            remaining = existing["quantity"] - quantity
-            if remaining > 0:
-                await upsert_position(ticker, remaining, existing["avg_cost"])
-            else:
-                await delete_position(ticker)
-
-        await insert_trade(ticker, side, quantity, current_price)
-        trade_results.append({
-            "ticker": ticker, "side": side, "quantity": quantity,
-            "price": current_price, "status": "executed",
-        })
-
-    # Record portfolio snapshot after trades
-    if trade_results:
-        new_cash = await get_cash_balance()
-        positions = await get_positions()
-        total_value = new_cash
-        for pos in positions:
-            price = price_cache.get_price(pos["ticker"]) or pos["avg_cost"]
-            total_value += price * pos["quantity"]
-        await insert_snapshot(round(total_value, 2))
+        result = await trade_service.execute_trade(ticker, side, quantity)
+        if result.success:
+            trade_results.append({
+                "ticker": ticker, "side": side, "quantity": quantity,
+                "price": result.price, "status": "executed",
+            })
+        else:
+            trade_results.append({"ticker": ticker, "side": side, "error": result.error})
 
     for change in llm_response.watchlist_changes:
         ticker = change.ticker.upper()
         action = change.action.lower()
         if action == "add":
             try:
-                await add_to_watchlist(ticker)
+                await trade_service.add_watchlist_ticker(ticker)
                 watchlist_results.append({"ticker": ticker, "action": "add", "status": "done"})
             except Exception as exc:
                 watchlist_results.append({"ticker": ticker, "action": "add", "error": str(exc)})
         elif action == "remove":
-            removed = await remove_from_watchlist(ticker)
-            if removed:
-                watchlist_results.append({"ticker": ticker, "action": "remove", "status": "done"})
-            else:
-                watchlist_results.append({"ticker": ticker, "action": "remove", "error": "Not in watchlist"})
+            removed = await trade_service.remove_watchlist_ticker(ticker)
+            status = "done" if removed else "not_found"
+            watchlist_results.append({"ticker": ticker, "action": "remove", "status": status})
 
     return {"trades": trade_results, "watchlist_changes": watchlist_results}
 
 
-async def chat_with_llm(user_message: str, price_cache: PriceCache) -> dict:
+async def chat_with_llm(user_message: str, price_cache: PriceCache, trade_service) -> dict:
     """Process a chat message: call LLM (or mock), execute actions, return response."""
     context = await _build_context(price_cache)
 
     # Mock mode
     if os.environ.get("LLM_MOCK", "").lower() == "true":
         llm_response = mock_chat(user_message, context)
-        action_results = await _execute_actions(llm_response, price_cache)
+        action_results = await _execute_actions(llm_response, price_cache, trade_service)
         return {
             "message": llm_response.message,
             "trades": action_results["trades"],
@@ -236,7 +175,7 @@ async def chat_with_llm(user_message: str, price_cache: PriceCache) -> dict:
     messages = _build_messages(context, history, user_message)
 
     try:
-        response = completion(
+        response = await acompletion(
             model=MODEL,
             messages=messages,
             response_format=LlmResponse,
@@ -253,7 +192,7 @@ async def chat_with_llm(user_message: str, price_cache: PriceCache) -> dict:
             "watchlist_changes": [],
         }
 
-    action_results = await _execute_actions(llm_response, price_cache)
+    action_results = await _execute_actions(llm_response, price_cache, trade_service)
     return {
         "message": llm_response.message,
         "trades": action_results["trades"],
