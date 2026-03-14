@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from app.db import get_cash_balance, get_positions, get_watchlist, init_db, insert_snapshot
 from app.market import PriceCache, create_market_data_source, create_stream_router
 from app.routes import chat, portfolio, watchlist
+from app.services import TradeService
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,7 @@ async def lifespan(app: FastAPI):
 
     app.state.price_cache = price_cache
     app.state.market_source = source
+    app.state.trade_service = TradeService(price_cache, source)
 
     # Start market data with watchlist tickers
     wl = await get_watchlist()

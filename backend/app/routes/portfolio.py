@@ -4,15 +4,9 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
 from app.db import (
-    delete_position,
     get_cash_balance,
     get_portfolio_history,
-    get_position,
     get_positions,
-    insert_snapshot,
-    insert_trade,
-    update_cash_balance,
-    upsert_position,
 )
 
 router = APIRouter(prefix="/api/portfolio", tags=["portfolio"])
@@ -68,8 +62,9 @@ async def get_portfolio(request: Request):
 
 @router.post("/trade")
 async def execute_trade(trade: TradeRequest, request: Request):
-    """Execute a market order. Validates cash/shares, updates DB, records snapshot."""
+    """Execute a market order via TradeService (atomic, race-condition-free)."""
     cache = request.app.state.price_cache
+    trade_service = request.app.state.trade_service
     ticker = trade.ticker.upper()
     side = trade.side.lower()
     quantity = trade.quantity
@@ -79,63 +74,30 @@ async def execute_trade(trade: TradeRequest, request: Request):
     if quantity <= 0:
         raise HTTPException(status_code=400, detail="quantity must be positive")
 
-    current_price = cache.get_price(ticker)
-    if current_price is None:
+    # Price check — fail fast before acquiring DB lock
+    if cache.get_price(ticker) is None:
         raise HTTPException(status_code=400, detail=f"No price available for {ticker}")
 
-    cash = await get_cash_balance()
+    result = await trade_service.execute_trade(ticker, side, quantity)
 
-    if side == "buy":
-        cost = current_price * quantity
-        if cost > cash:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Insufficient cash. Need ${cost:.2f}, have ${cash:.2f}",
-            )
+    if not result.success:
+        raise HTTPException(status_code=400, detail=result.error)
 
-        # Update cash
-        await update_cash_balance(cash - cost)
-
-        # Update position
-        existing = await get_position(ticker)
-        if existing:
-            total_qty = existing["quantity"] + quantity
-            total_cost = (existing["avg_cost"] * existing["quantity"]) + cost
-            new_avg = total_cost / total_qty
-            await upsert_position(ticker, total_qty, new_avg)
-        else:
-            await upsert_position(ticker, quantity, current_price)
-
-    else:  # sell
-        existing = await get_position(ticker)
-        if not existing or existing["quantity"] < quantity:
-            held = existing["quantity"] if existing else 0
-            raise HTTPException(
-                status_code=400,
-                detail=f"Insufficient shares. Have {held}, trying to sell {quantity}",
-            )
-
-        proceeds = current_price * quantity
-        await update_cash_balance(cash + proceeds)
-
-        remaining = existing["quantity"] - quantity
-        if remaining > 0:
-            await upsert_position(ticker, remaining, existing["avg_cost"])
-        else:
-            await delete_position(ticker)
-
-    # Record trade
-    trade_record = await insert_trade(ticker, side, quantity, current_price)
-
-    # Record portfolio snapshot
+    # Return same shape as before for frontend compatibility
     new_cash = await get_cash_balance()
     positions = await get_positions()
-    total_value = new_cash
-    for pos in positions:
-        price = cache.get_price(pos["ticker"]) or pos["avg_cost"]
-        total_value += price * pos["quantity"]
-    await insert_snapshot(round(total_value, 2))
-
+    total_value = new_cash + sum(
+        (cache.get_price(p["ticker"]) or p["avg_cost"]) * p["quantity"]
+        for p in positions
+    )
+    trade_record = {
+        "id": "",
+        "ticker": ticker,
+        "side": side,
+        "quantity": quantity,
+        "price": result.price,
+        "executed_at": "",
+    }
     return {
         "trade": trade_record,
         "cash": round(new_cash, 2),

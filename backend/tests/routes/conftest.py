@@ -6,6 +6,7 @@ from httpx import ASGITransport, AsyncClient
 
 from app.db import init_db, set_db_path
 from app.market import PriceCache
+from app.services import TradeService
 
 
 @pytest.fixture
@@ -53,8 +54,10 @@ async def client(test_db, price_cache):
         async def add_ticker(self, ticker): pass
         async def remove_ticker(self, ticker): pass
 
+    mock_source = MockSource()
     test_app.state.price_cache = price_cache
-    test_app.state.market_source = MockSource()
+    test_app.state.market_source = mock_source
+    test_app.state.trade_service = TradeService(price_cache, mock_source)
 
     transport = ASGITransport(app=test_app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
