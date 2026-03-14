@@ -1,0 +1,61 @@
+# Project State
+
+## Project Reference
+
+See: .planning/PROJECT.md (updated 2026-03-13)
+
+**Core value:** Users can watch live streaming prices, trade a simulated portfolio, and chat with an AI assistant that understands their positions and can execute trades — all from a single browser tab with zero setup.
+**Current focus:** Phase 1 — Backend Hardening
+
+## Current Position
+
+Phase: 1 of 5 (Backend Hardening)
+Plan: 0 of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-03-13 — Roadmap created, 27 requirements mapped across 5 phases
+
+Progress: [░░░░░░░░░░] 0%
+
+## Performance Metrics
+
+**Velocity:**
+- Total plans completed: 0
+- Average duration: -
+- Total execution time: 0 hours
+
+**By Phase:**
+
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| - | - | - | - |
+
+**Recent Trend:**
+- Last 5 plans: none yet
+- Trend: -
+
+*Updated after each plan completion*
+
+## Accumulated Context
+
+### Decisions
+
+Decisions are logged in PROJECT.md Key Decisions table.
+Recent decisions affecting current work:
+
+- Phase 0: SSE over WebSockets — one-way push is sufficient, simpler, universal browser support
+- Phase 0: uv for Python — modern, fast, reproducible lockfile
+
+### Pending Todos
+
+None yet.
+
+### Blockers/Concerns
+
+- Phase 1: SQLite race condition in concurrent trade execution is the critical bug to fix before frontend work begins. Wrap trade execution in a single-connection transaction with BEGIN IMMEDIATE.
+- Phase 3: DISP-03 (sparklines) assigned here rather than Phase 2 — sparklines require accumulated price data from the SSE hook that Phase 2 establishes, but the component itself is part of the trading/visualization panel build.
+
+## Session Continuity
+
+Last session: 2026-03-13
+Stopped at: Roadmap created, requirements mapped, ready to plan Phase 1
+Resume file: None
