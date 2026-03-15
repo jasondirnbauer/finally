@@ -36,28 +36,27 @@ created: 2026-03-14
 
 ## Per-Task Verification Map
 
-| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 03-01-01 | 01 | 1 | CHART-01 | unit | `npx jest TickerChart` | ❌ W0 | ⬜ pending |
-| 03-01-02 | 01 | 1 | CHART-02, CHART-03 | unit | `npx jest TickerChart` | ❌ W0 | ⬜ pending |
-| 03-02-01 | 02 | 1 | TRADE-01, TRADE-02 | unit | `npx jest TradeBar` | ❌ W0 | ⬜ pending |
-| 03-02-02 | 02 | 1 | TRADE-03 | unit | `npx jest TradeBar` | ❌ W0 | ⬜ pending |
-| 03-03-01 | 03 | 2 | DISP-03 | unit | `npx jest Sparkline` | ❌ W0 | ⬜ pending |
-| 03-03-02 | 03 | 2 | CHART-04 | unit | `npx jest Heatmap` | ❌ W0 | ⬜ pending |
-| 03-03-03 | 03 | 2 | CHART-04 | unit | `npx jest PnLChart` | ❌ W0 | ⬜ pending |
-| 03-03-04 | 03 | 2 | CHART-04 | unit | `npx jest PositionsTable` | ❌ W0 | ⬜ pending |
+| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | Test File | Status |
+|---------|------|------|-------------|-----------|-------------------|-----------|--------|
+| 03-01-01 | 01 | 1 | CHART-01, DISP-03 | unit | `npx jest Sparkline` | `frontend/__tests__/Sparkline.test.tsx` | pending |
+| 03-01-02 | 01 | 1 | CHART-01 | unit | `npx jest PriceChart` | `frontend/__tests__/PriceChart.test.tsx` | pending |
+| 03-02-01 | 02 | 2 | TRADE-01, TRADE-02, TRADE-03 | unit | `npx jest TradeBar` | `frontend/__tests__/TradeBar.test.tsx` | pending |
+| 03-02-02 | 02 | 2 | TRADE-01 | unit | `npx jest ChartPanel` | `frontend/__tests__/ChartPanel.test.tsx` | pending |
+| 03-03-01 | 03 | 3 | CHART-02, CHART-04 | unit | `npx jest PositionsTable PortfolioHeatmap` | `frontend/__tests__/PositionsTable.test.tsx`, `frontend/__tests__/PortfolioHeatmap.test.tsx` | pending |
+| 03-03-02 | 03 | 3 | CHART-03 | unit | `npx jest PnlChart` | `frontend/__tests__/PnlChart.test.tsx` | pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: pending / green / red / flaky*
 
 ---
 
 ## Wave 0 Requirements
 
-- [ ] Test stubs for chart components (TickerChart, Sparkline)
+- [ ] Test stubs for chart components (PriceChart, Sparkline)
 - [ ] Test stubs for trade components (TradeBar)
-- [ ] Test stubs for portfolio components (Heatmap, PnLChart, PositionsTable)
+- [ ] Test stubs for wiring (ChartPanel)
+- [ ] Test stubs for portfolio components (PortfolioHeatmap, PnlChart, PositionsTable)
 - [ ] Mock for `lightweight-charts` (canvas-based, needs imperative mock)
-- [ ] Mock for `recharts` components (TreeMap, LineChart)
+- [ ] Mock for `recharts` components (Treemap, LineChart)
 
 *Existing Jest + @testing-library infrastructure from Phase 2 covers framework setup.*
 
@@ -68,7 +67,7 @@ created: 2026-03-14
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
 | Price flash on chart data update | CHART-01 | Canvas rendering not testable in jsdom | Open browser, click ticker, verify chart renders with live updates |
-| Heatmap color gradient accuracy | CHART-04 | SVG color interpolation visual | Open browser, make trades, verify green/red heatmap proportions |
+| Heatmap color gradient accuracy | CHART-02 | SVG color interpolation visual | Open browser, make trades, verify green/red heatmap proportions |
 | Trade bar instant feedback | TRADE-01 | Full API round-trip timing | Execute buy/sell, verify cash + positions update < 1 second |
 
 ---
