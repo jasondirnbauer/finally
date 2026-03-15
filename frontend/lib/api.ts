@@ -12,7 +12,8 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export async function fetchWatchlist(): Promise<WatchlistEntry[]> {
-  return apiFetch<WatchlistEntry[]>('/api/watchlist');
+  const data = await apiFetch<{ watchlist: WatchlistEntry[] }>('/api/watchlist');
+  return data.watchlist;
 }
 
 export async function fetchPortfolio(): Promise<PortfolioSummary> {

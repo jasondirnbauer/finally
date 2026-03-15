@@ -44,12 +44,17 @@ export function usePriceStream(): PriceState {
       es.onmessage = (event: MessageEvent) => {
         if (!mounted) return;
         try {
-          const update: PriceUpdate = JSON.parse(event.data);
-          setPrices(prev => ({ ...prev, [update.ticker]: update }));
-          setPriceHistory(prev => ({
-            ...prev,
-            [update.ticker]: [...(prev[update.ticker] ?? []), update.price].slice(-200),
-          }));
+          const parsed = JSON.parse(event.data);
+          // SSE sends all tickers as a single object: { "AAPL": {...}, "AMZN": {...}, ... }
+          const updates: Record<string, PriceUpdate> = parsed;
+          setPrices(prev => ({ ...prev, ...updates }));
+          setPriceHistory(prev => {
+            const next = { ...prev };
+            for (const [ticker, update] of Object.entries(updates)) {
+              next[ticker] = [...(prev[ticker] ?? []), update.price].slice(-200);
+            }
+            return next;
+          });
           resetStaleTimer();
         } catch {
           // Ignore malformed events
