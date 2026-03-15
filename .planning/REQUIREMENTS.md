@@ -35,10 +35,10 @@
 
 ### AI Chat
 
-- [ ] **CHAT-01**: Chat panel (docked/collapsible sidebar) with message input and scrolling conversation history
-- [ ] **CHAT-02**: Loading indicator while waiting for LLM response
+- [x] **CHAT-01**: Chat panel (docked/collapsible sidebar) with message input and scrolling conversation history
+- [x] **CHAT-02**: Loading indicator while waiting for LLM response
 - [ ] **CHAT-03**: User can ask the AI to execute trades via natural language, trades auto-execute
-- [ ] **CHAT-04**: Inline action confirmations — trade executions and watchlist changes shown as styled cards in chat
+- [x] **CHAT-04**: Inline action confirmations — trade executions and watchlist changes shown as styled cards in chat
 - [ ] **CHAT-05**: AI can analyze portfolio composition, risk concentration, and P&L when asked
 - [ ] **CHAT-06**: AI can add/remove tickers from watchlist via natural language
 
@@ -106,10 +106,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRADE-01 | Phase 3 | Complete |
 | TRADE-02 | Phase 3 | Complete |
 | TRADE-03 | Phase 3 | Complete |
-| CHAT-01 | Phase 4 | Pending |
-| CHAT-02 | Phase 4 | Pending |
+| CHAT-01 | Phase 4 | Complete |
+| CHAT-02 | Phase 4 | Complete |
 | CHAT-03 | Phase 4 | Pending |
-| CHAT-04 | Phase 4 | Pending |
+| CHAT-04 | Phase 4 | Complete |
 | CHAT-05 | Phase 4 | Pending |
 | CHAT-06 | Phase 4 | Pending |
 | INFRA-01 | Phase 5 | Pending |

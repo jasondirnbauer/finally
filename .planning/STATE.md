@@ -3,29 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-15T01:42:04.853Z"
-last_activity: 2026-03-15 — Portfolio visualization components complete
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-15T14:36:15Z"
+last_activity: 2026-03-15 — Chat UI building blocks complete (ChatMessage, ChatInput, ChatActionCard)
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-15T01:35:55Z"
-last_activity: 2026-03-15 — Portfolio visualization components complete
-progress:
-  total_phases: 5
-  completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 10
+  completed_plans: 9
 ---
 
 # Project State
@@ -35,16 +20,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Users can watch live streaming prices, trade a simulated portfolio, and chat with an AI assistant that understands their positions and can execute trades — all from a single browser tab with zero setup.
-**Current focus:** Phase 3 complete — Trading + Portfolio Visualization done
+**Current focus:** Phase 4 in progress — AI Chat UI building blocks done, chat panel integration next
 
 ## Current Position
 
-Phase: 3 of 5 (Trading + Portfolio Visualization) -- COMPLETE
-Plan: 3 of 3 in current phase (03-03 complete)
-Status: Phase Complete
-Last activity: 2026-03-15 — Portfolio visualization components complete
+Phase: 4 of 5 (AI Chat)
+Plan: 1 of 2 in current phase (04-01 complete)
+Status: Executing
+Last activity: 2026-03-15 — Chat UI building blocks complete (ChatMessage, ChatInput, ChatActionCard)
 
-Progress: [████████░░] 80%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -70,6 +55,7 @@ Progress: [████████░░] 80%
 | Phase 03 P01 | 12min | 2 tasks | 17 files |
 | Phase 03 P02 | 3min | 2 tasks | 4 files |
 | Phase 03 P03 | 3min | 2 tasks | 7 files |
+| Phase 04 P01 | 4min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -99,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 03-03]: PnlChart uses 30s setInterval (not portfolio.total_value dependency) to avoid excessive API calls
 - [Phase 03-03]: Tooltip formatter uses Number(value) cast for Recharts ValueType compatibility
 - [Phase 03-03]: Portfolio area uses 3fr/2fr grid split giving chart 60% and portfolio 40% of right column
+- [Phase 04-01]: ChatMessage uses children slot for action cards -- parent composes ChatMessage + ChatActionCard for decoupled testability
+- [Phase 04-01]: ChatActionCard returns null for null/empty actions -- callers don't need null guards
+- [Phase 04-01]: fetchChatHistory parses JSON actions string from DB into ChatActions objects client-side
 
 ### Pending Todos
 
@@ -111,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-15T01:35:55Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-03-15T14:36:15Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
