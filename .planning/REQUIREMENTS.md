@@ -29,9 +29,9 @@
 
 ### Trading
 
-- [ ] **TRADE-01**: Trade bar with ticker field, quantity field, buy button, sell button
-- [ ] **TRADE-02**: Market orders execute instantly at current price with no confirmation dialog
-- [ ] **TRADE-03**: Validation — insufficient cash for buys or insufficient shares for sells returns clear error
+- [x] **TRADE-01**: Trade bar with ticker field, quantity field, buy button, sell button
+- [x] **TRADE-02**: Market orders execute instantly at current price with no confirmation dialog
+- [x] **TRADE-03**: Validation — insufficient cash for buys or insufficient shares for sells returns clear error
 
 ### AI Chat
 
@@ -103,9 +103,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHART-02 | Phase 3 | Pending |
 | CHART-03 | Phase 3 | Pending |
 | CHART-04 | Phase 3 | Pending |
-| TRADE-01 | Phase 3 | Pending |
-| TRADE-02 | Phase 3 | Pending |
-| TRADE-03 | Phase 3 | Pending |
+| TRADE-01 | Phase 3 | Complete |
+| TRADE-02 | Phase 3 | Complete |
+| TRADE-03 | Phase 3 | Complete |
 | CHAT-01 | Phase 4 | Pending |
 | CHAT-02 | Phase 4 | Pending |
 | CHAT-03 | Phase 4 | Pending |

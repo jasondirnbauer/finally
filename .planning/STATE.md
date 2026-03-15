@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-15T01:28:00Z"
-last_activity: 2026-03-15 — Charting foundation + sparklines + PriceChart built
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-15T01:29:09Z"
+last_activity: 2026-03-15 — TradeBar + ChartPanel wiring complete
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 ## Current Position
 
 Phase: 3 of 5 (Trading + Portfolio Visualization)
-Plan: 1 of 3 in current phase (03-01 complete)
+Plan: 2 of 3 in current phase (03-02 complete)
 Status: Executing
-Last activity: 2026-03-15 — Charting foundation + sparklines + PriceChart built
+Last activity: 2026-03-15 — TradeBar + ChartPanel wiring complete
 
-Progress: [██████░░░░] 60%
+Progress: [███████░░░] 70%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Progress: [██████░░░░] 60%
 | Phase 02 P02 | 8min | 2 tasks | 3 files |
 | Phase 02 P03 | 15min | 2 tasks | 8 files |
 | Phase 03 P01 | 12min | 2 tasks | 17 files |
+| Phase 03 P02 | 3min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 03-01]: lightweight-charts manual Jest mock via moduleNameMapper — ESM-only package cannot be resolved by Jest CJS loader
 - [Phase 03-01]: PriceChart receives data as props (not from context) — enables reuse and testability; ChartPanel bridges context to props
 - [Phase 03-01]: Type renames (cash_balance->cash, pnl_pct->pnl_percent) applied as breaking changes with all consumers updated
+- [Phase 03-02]: TradeBar parses JSON detail from apiFetch error format for clean user-facing error messages
+- [Phase 03-02]: ChartPanel updated in-place (not extracted to page.tsx) since it already existed as standalone component from Plan 01
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-15T01:28:00Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-03-15T01:29:09Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
