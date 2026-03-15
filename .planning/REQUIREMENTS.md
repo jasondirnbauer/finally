@@ -22,7 +22,7 @@
 
 ### Charts & Visualization
 
-- [ ] **CHART-01**: Main price chart for selected ticker using canvas-based charting library (Lightweight Charts)
+- [x] **CHART-01**: Main price chart for selected ticker using canvas-based charting library (Lightweight Charts)
 - [ ] **CHART-02**: Portfolio heatmap/treemap — positions sized by portfolio weight, colored by P&L (green=profit, red=loss)
 - [ ] **CHART-03**: P&L history line chart showing total portfolio value over time from portfolio_snapshots
 - [ ] **CHART-04**: Positions table — ticker, quantity, avg cost, current price, unrealized P&L, % change
@@ -99,7 +99,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DISP-03 | Phase 3 | Complete |
 | DISP-04 | Phase 2 | Complete |
 | DISP-05 | Phase 2 | Complete |
-| CHART-01 | Phase 3 | Pending |
+| CHART-01 | Phase 3 | Complete |
 | CHART-02 | Phase 3 | Pending |
 | CHART-03 | Phase 3 | Pending |
 | CHART-04 | Phase 3 | Pending |

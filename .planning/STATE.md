@@ -3,29 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-03-PLAN.md (Phase 2 complete)
-last_updated: "2026-03-14T17:54:36.280Z"
-last_activity: 2026-03-14 — Header, Watchlist, WatchlistRow with flash animations built
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-15T01:28:00Z"
+last_activity: 2026-03-15 — Charting foundation + sparklines + PriceChart built
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: executing
-stopped_at: Completed 02-03-PLAN.md (Phase 2 complete)
-last_updated: "2026-03-14T17:43:35Z"
-last_activity: 2026-03-14 — Header, Watchlist, WatchlistRow with flash animations built
-progress:
-  total_phases: 5
-  completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 8
+  completed_plans: 6
 ---
 
 # Project State
@@ -35,16 +20,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Users can watch live streaming prices, trade a simulated portfolio, and chat with an AI assistant that understands their positions and can execute trades — all from a single browser tab with zero setup.
-**Current focus:** Phase 2 complete, ready for Phase 3 — Trading + Portfolio Panels
+**Current focus:** Phase 3 in progress — Trading + Portfolio Visualization
 
 ## Current Position
 
-Phase: 2 of 5 (Frontend Shell + Streaming) -- COMPLETE
-Plan: 3 of 3 in current phase (all done)
-Status: Phase Complete
-Last activity: 2026-03-14 — Header, Watchlist, WatchlistRow with flash animations built
+Phase: 3 of 5 (Trading + Portfolio Visualization)
+Plan: 1 of 3 in current phase (03-01 complete)
+Status: Executing
+Last activity: 2026-03-15 — Charting foundation + sparklines + PriceChart built
 
-Progress: [██████████] 100%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -67,6 +52,7 @@ Progress: [██████████] 100%
 | Phase 01-backend-hardening P02 | 12 | 2 tasks | 6 files |
 | Phase 02 P02 | 8min | 2 tasks | 3 files |
 | Phase 02 P03 | 15min | 2 tasks | 8 files |
+| Phase 03 P01 | 12min | 2 tasks | 17 files |
 
 ## Accumulated Context
 
@@ -88,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 02-03]: Flash animation keyed on update?.timestamp (not price) — identical prices still trigger visual feedback
 - [Phase 02-03]: moduleNameMapper added to jest.config.ts — next/jest did not auto-resolve @/ alias in Jest 30
 - [Phase 02-03]: WatchlistRow uses data-ticker/data-selected attributes — testability and semantic markup
+- [Phase 03-01]: lightweight-charts manual Jest mock via moduleNameMapper — ESM-only package cannot be resolved by Jest CJS loader
+- [Phase 03-01]: PriceChart receives data as props (not from context) — enables reuse and testability; ChartPanel bridges context to props
+- [Phase 03-01]: Type renames (cash_balance->cash, pnl_pct->pnl_percent) applied as breaking changes with all consumers updated
 
 ### Pending Todos
 
@@ -100,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T17:43:35Z
-Stopped at: Completed 02-03-PLAN.md (Phase 2 complete)
+Last session: 2026-03-15T01:28:00Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
