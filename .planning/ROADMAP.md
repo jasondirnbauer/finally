@@ -33,8 +33,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Create TradeService with atomic transaction, snapshot, watchlist sync + full TDD test suite
-- [ ] 01-02-PLAN.md — Wire TradeService into portfolio route, LLM service, and main.py; fix async LLM call
+- [x] 01-01-PLAN.md — Create TradeService with atomic transaction, snapshot, watchlist sync + full TDD test suite
+- [x] 01-02-PLAN.md — Wire TradeService into portfolio route, LLM service, and main.py; fix async LLM call
 
 ### Phase 2: Frontend Shell + Streaming
 **Goal**: Users see a dark trading terminal in their browser with live-streaming prices the moment they open it
@@ -64,7 +64,12 @@ Plans:
   4. The portfolio heatmap shows each position as a rectangle sized by portfolio weight and colored green (profit) or red (loss) in proportion to P&L
   5. The P&L chart shows a line of total portfolio value over time using data from portfolio_snapshots, and gains a new point after each trade
   6. The positions table lists every open position with ticker, quantity, average cost, current price, unrealized P&L, and % change — all updating live
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Install charting deps, fix type/API mismatches, build Sparkline + PriceChart components
+- [ ] 03-02-PLAN.md — Build TradeBar component, wire PriceChart into page layout for ticker selection and live updates
+- [ ] 03-03-PLAN.md — Build PortfolioHeatmap, PnlChart, PositionsTable components and wire into page layout
 
 ### Phase 4: AI Chat
 **Goal**: Users can have a natural language conversation with an AI assistant that understands their portfolio and can execute trades and watchlist changes on their behalf
@@ -100,6 +105,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 0. Market Data | - | Complete | 2026-03-13 |
 | 1. Backend Hardening | 2/2 | Complete   | 2026-03-14 |
 | 2. Frontend Shell + Streaming | 3/3 | Complete | 2026-03-14 |
-| 3. Trading + Portfolio Visualization | 0/TBD | Not started | - |
+| 3. Trading + Portfolio Visualization | 0/3 | In progress | - |
 | 4. AI Chat | 0/TBD | Not started | - |
 | 5. Docker + Testing | 0/TBD | Not started | - |
