@@ -32,19 +32,19 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-13)
+See: .planning/PROJECT.md (updated 2026-03-15)
 
 **Core value:** Users can watch live streaming prices, trade a simulated portfolio, and chat with an AI assistant that understands their positions and can execute trades — all from a single browser tab with zero setup.
-**Current focus:** Phase 4 complete — Full AI chat experience built. Ready for Phase 5 (Docker & E2E)
+**Current focus:** Phase 5 — Docker containerization and E2E testing
 
 ## Current Position
 
-Phase: 4 of 5 (AI Chat) -- COMPLETE
-Plan: 2 of 2 in current phase (04-02 complete)
-Status: Executing
-Last activity: 2026-03-15 — Phase 4 complete: ChatPanel integration with header toggle and collapsible layout
+Phase: 5 of 5 (Docker + Testing)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-03-15 — Phase 4 complete, transitioning to Phase 5
 
-Progress: [██████████] 100%
+Progress: ████████░░ 80% (4/5 phases complete)
 
 ## Performance Metrics
 
@@ -114,11 +114,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 1: SQLite race condition in concurrent trade execution is the critical bug to fix before frontend work begins. Wrap trade execution in a single-connection transaction with BEGIN IMMEDIATE.
-- Phase 3: DISP-03 (sparklines) assigned here rather than Phase 2 — sparklines require accumulated price data from the SSE hook that Phase 2 establishes, but the component itself is part of the trading/visualization panel build.
+- Pre-existing: PriceChart.test.tsx has untyped mock imports that fail tsc --noEmit (does not affect Jest or build)
 
 ## Session Continuity
 
-Last session: 2026-03-15T14:44:15Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-15
+Stopped at: Phase 4 complete, ready to plan Phase 5
 Resume file: None
