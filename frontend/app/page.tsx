@@ -2,12 +2,24 @@ import { PriceProvider } from '@/context/PriceContext';
 import { Header } from '@/components/Header';
 import { Watchlist } from '@/components/Watchlist';
 import { ChartPanel } from '@/components/ChartPanel';
+import { PortfolioHeatmap } from '@/components/PortfolioHeatmap';
+import { PnlChart } from '@/components/PnlChart';
+import { PositionsTable } from '@/components/PositionsTable';
 
-function PortfolioAreaPlaceholder() {
+function PortfolioPanel() {
   return (
-    <div className="h-full bg-terminal-surface border border-terminal-border rounded p-3">
-      <div className="text-terminal-muted text-xs uppercase tracking-wide font-mono">
-        Portfolio — Phase 3
+    <div className="grid grid-cols-2 grid-rows-[1fr_1fr] gap-2 h-full">
+      {/* Top left: Heatmap */}
+      <div className="min-h-0">
+        <PortfolioHeatmap />
+      </div>
+      {/* Top right: P&L chart */}
+      <div className="min-h-0">
+        <PnlChart />
+      </div>
+      {/* Bottom: Positions table spanning full width */}
+      <div className="col-span-2 min-h-0 overflow-auto">
+        <PositionsTable />
       </div>
     </div>
   );
@@ -27,15 +39,13 @@ export default function TradingTerminal() {
             <Watchlist />
           </div>
 
-          {/* Right column: Chart + Portfolio grid */}
-          <div className="grid grid-rows-[1fr_auto] gap-2 overflow-hidden">
+          {/* Right column: Chart (60%) + Portfolio (40%) */}
+          <div className="grid grid-rows-[3fr_2fr] gap-2 overflow-hidden">
             {/* Chart area (top) */}
             <ChartPanel />
 
-            {/* Portfolio area (bottom) — reserved for Phase 3 */}
-            <div className="h-48">
-              <PortfolioAreaPlaceholder />
-            </div>
+            {/* Portfolio area (bottom) */}
+            <PortfolioPanel />
           </div>
         </div>
       </div>
