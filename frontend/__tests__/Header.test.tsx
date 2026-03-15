@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Header } from '@/components/Header';
 import type { ConnectionStatus, PortfolioSummary } from '@/lib/types';
 
@@ -70,5 +70,39 @@ describe('Header', () => {
     render(<Header />);
     expect(screen.getByText(/\$15,000\.00/)).toBeInTheDocument();
     expect(screen.getByText(/\$5,000\.00/)).toBeInTheDocument();
+  });
+
+  it('does not render chat toggle button when onChatToggle is not provided', () => {
+    mockUsePriceContext.mockReturnValue(makeCtx('connected', null));
+    render(<Header />);
+    expect(screen.queryByText('AI Chat')).not.toBeInTheDocument();
+  });
+
+  it('renders chat toggle button when onChatToggle is provided', () => {
+    mockUsePriceContext.mockReturnValue(makeCtx('connected', null));
+    render(<Header onChatToggle={jest.fn()} chatOpen={false} />);
+    expect(screen.getByText('AI Chat')).toBeInTheDocument();
+  });
+
+  it('applies active styling when chatOpen is true', () => {
+    mockUsePriceContext.mockReturnValue(makeCtx('connected', null));
+    render(<Header onChatToggle={jest.fn()} chatOpen={true} />);
+    const btn = screen.getByText('AI Chat');
+    expect(btn).toHaveClass('bg-terminal-purple/20');
+  });
+
+  it('applies inactive styling when chatOpen is false', () => {
+    mockUsePriceContext.mockReturnValue(makeCtx('connected', null));
+    render(<Header onChatToggle={jest.fn()} chatOpen={false} />);
+    const btn = screen.getByText('AI Chat');
+    expect(btn).toHaveClass('border-terminal-border');
+  });
+
+  it('fires onChatToggle callback when toggle button is clicked', () => {
+    mockUsePriceContext.mockReturnValue(makeCtx('connected', null));
+    const onChatToggle = jest.fn();
+    render(<Header onChatToggle={onChatToggle} chatOpen={false} />);
+    fireEvent.click(screen.getByText('AI Chat'));
+    expect(onChatToggle).toHaveBeenCalledTimes(1);
   });
 });
