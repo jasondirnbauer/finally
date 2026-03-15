@@ -4,7 +4,7 @@ import { usePriceContext } from '@/context/PriceContext';
 import { WatchlistRow } from './WatchlistRow';
 
 export function Watchlist() {
-  const { prices, watchlist, selectedTicker, setSelectedTicker } = usePriceContext();
+  const { prices, priceHistory, watchlist, selectedTicker, setSelectedTicker } = usePriceContext();
 
   return (
     <div className="flex flex-col h-full bg-terminal-surface border border-terminal-border rounded overflow-hidden">
@@ -16,8 +16,9 @@ export function Watchlist() {
       </div>
 
       {/* Column headers */}
-      <div className="grid grid-cols-[80px_1fr_80px] px-2 py-1 border-b border-terminal-border/50 shrink-0">
+      <div className="grid grid-cols-[80px_60px_1fr_80px] px-2 py-1 border-b border-terminal-border/50 shrink-0">
         <span className="text-terminal-muted text-xs font-mono">Ticker</span>
+        <span className="text-terminal-muted text-xs font-mono text-center">Trend</span>
         <span className="text-terminal-muted text-xs font-mono text-right">Price</span>
         <span className="text-terminal-muted text-xs font-mono text-right">Change</span>
       </div>
@@ -32,6 +33,7 @@ export function Watchlist() {
               key={entry.ticker}
               ticker={entry.ticker}
               update={prices[entry.ticker]}
+              priceHistory={priceHistory[entry.ticker] ?? []}
               selected={selectedTicker === entry.ticker}
               onClick={() => setSelectedTicker(entry.ticker)}
             />

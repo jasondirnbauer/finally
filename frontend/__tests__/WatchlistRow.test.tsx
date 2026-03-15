@@ -20,7 +20,7 @@ describe('WatchlistRow', () => {
 
   it('renders ticker symbol, price, change, and changePct', () => {
     const { getByText } = render(
-      <WatchlistRow ticker="AAPL" update={makeUpdate()} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={makeUpdate()} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     expect(getByText('AAPL')).toBeInTheDocument();
     expect(getByText(/190\.00/)).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe('WatchlistRow', () => {
 
   it('applies flash-green class on uptick', () => {
     const { container } = render(
-      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'up' })} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'up' })} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     const row = container.firstChild as HTMLElement;
     expect(row.className).toMatch(/flash-green/);
@@ -36,7 +36,7 @@ describe('WatchlistRow', () => {
 
   it('applies flash-red class on downtick', () => {
     const { container } = render(
-      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'down' })} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'down' })} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     const row = container.firstChild as HTMLElement;
     expect(row.className).toMatch(/flash-red/);
@@ -44,7 +44,7 @@ describe('WatchlistRow', () => {
 
   it('removes flash class after 500ms', () => {
     const { container } = render(
-      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'up' })} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={makeUpdate({ direction: 'up' })} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     const row = container.firstChild as HTMLElement;
     expect(row.className).toMatch(/flash-green/);
@@ -55,7 +55,7 @@ describe('WatchlistRow', () => {
   it('re-triggers flash on new timestamp with same price', () => {
     const update1 = makeUpdate({ timestamp: '2024-01-01T00:00:00.000Z', direction: 'up' });
     const { container, rerender } = render(
-      <WatchlistRow ticker="AAPL" update={update1} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={update1} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     // Advance past first flash
     act(() => { jest.advanceTimersByTime(600); });
@@ -65,7 +65,7 @@ describe('WatchlistRow', () => {
     // Same price, new timestamp — should re-flash
     const update2 = makeUpdate({ timestamp: '2024-01-01T00:00:00.500Z', direction: 'up' });
     rerender(
-      <WatchlistRow ticker="AAPL" update={update2} selected={false} onClick={jest.fn()} />,
+      <WatchlistRow ticker="AAPL" update={update2} priceHistory={[]} selected={false} onClick={jest.fn()} />,
     );
     expect(row.className).toMatch(/flash-green/);
   });

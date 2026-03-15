@@ -60,8 +60,10 @@ describe('Header', () => {
 
   it('shows portfolio value when portfolio loaded', () => {
     const portfolio: PortfolioSummary = {
-      cash_balance: 5000.0,
+      cash: 5000.0,
       total_value: 15000.0,
+      total_market_value: 10000.0,
+      unrealized_pnl: 0,
       positions: [],
     };
     mockUsePriceContext.mockReturnValue(makeCtx('connected', portfolio));

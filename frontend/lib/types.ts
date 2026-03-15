@@ -20,13 +20,16 @@ export interface Position {
   quantity: number;
   avg_cost: number;
   current_price: number | null;
+  market_value: number;
   unrealized_pnl: number | null;
-  pnl_pct: number | null;
+  pnl_percent: number | null;
 }
 
 export interface PortfolioSummary {
-  cash_balance: number;
+  cash: number;
   total_value: number;
+  total_market_value: number;
+  unrealized_pnl: number;
   positions: Position[];
 }
 

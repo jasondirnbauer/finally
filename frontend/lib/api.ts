@@ -20,7 +20,8 @@ export async function fetchPortfolio(): Promise<PortfolioSummary> {
 }
 
 export async function fetchPortfolioHistory(): Promise<PortfolioSnapshot[]> {
-  return apiFetch<PortfolioSnapshot[]>('/api/portfolio/history');
+  const data = await apiFetch<{ snapshots: PortfolioSnapshot[] }>('/api/portfolio/history');
+  return data.snapshots;
 }
 
 export async function addToWatchlist(ticker: string): Promise<void> {
@@ -35,12 +36,25 @@ export async function removeFromWatchlist(ticker: string): Promise<void> {
   return apiFetch<void>(`/api/watchlist/${ticker}`, { method: 'DELETE' });
 }
 
+export interface TradeResult {
+  trade: {
+    id: string;
+    ticker: string;
+    side: string;
+    quantity: number;
+    price: number;
+    executed_at: string;
+  };
+  cash: number;
+  total_value: number;
+}
+
 export async function executeTrade(
   ticker: string,
   side: 'buy' | 'sell',
   quantity: number,
-): Promise<unknown> {
-  return apiFetch<unknown>('/api/portfolio/trade', {
+): Promise<TradeResult> {
+  return apiFetch<TradeResult>('/api/portfolio/trade', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ticker, side, quantity }),

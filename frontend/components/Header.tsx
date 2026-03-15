@@ -47,7 +47,7 @@ export function Header() {
             Cash
           </span>
           <span className="text-terminal-text font-semibold tabular-nums">
-            {portfolio ? formatCurrency(portfolio.cash_balance) : '\u2014'}
+            {portfolio ? formatCurrency(portfolio.cash) : '\u2014'}
           </span>
         </div>
       </div>
