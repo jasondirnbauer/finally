@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { PriceProvider } from '@/context/PriceContext';
 import { Header } from '@/components/Header';
 import { Watchlist } from '@/components/Watchlist';
@@ -5,6 +8,7 @@ import { ChartPanel } from '@/components/ChartPanel';
 import { PortfolioHeatmap } from '@/components/PortfolioHeatmap';
 import { PnlChart } from '@/components/PnlChart';
 import { PositionsTable } from '@/components/PositionsTable';
+import { ChatPanel } from '@/components/ChatPanel';
 
 function PortfolioPanel() {
   return (
@@ -26,20 +30,24 @@ function PortfolioPanel() {
 }
 
 export default function TradingTerminal() {
+  const [chatOpen, setChatOpen] = useState(false);
+
   return (
     <PriceProvider>
       <div className="h-screen flex flex-col bg-terminal-bg overflow-hidden">
-        {/* Header — fixed top bar */}
-        <Header />
+        {/* Header -- fixed top bar */}
+        <Header onChatToggle={() => setChatOpen((prev) => !prev)} chatOpen={chatOpen} />
 
         {/* Main trading grid */}
-        <div className="flex-1 grid grid-cols-[320px_1fr] gap-2 p-2 overflow-hidden">
+        <div
+          className={`flex-1 grid ${chatOpen ? 'grid-cols-[320px_1fr_380px]' : 'grid-cols-[320px_1fr]'} gap-2 p-2 overflow-hidden`}
+        >
           {/* Left column: Watchlist */}
           <div className="flex flex-col overflow-hidden">
             <Watchlist />
           </div>
 
-          {/* Right column: Chart (60%) + Portfolio (40%) */}
+          {/* Center column: Chart (60%) + Portfolio (40%) */}
           <div className="grid grid-rows-[3fr_2fr] gap-2 overflow-hidden">
             {/* Chart area (top) */}
             <ChartPanel />
@@ -47,6 +55,13 @@ export default function TradingTerminal() {
             {/* Portfolio area (bottom) */}
             <PortfolioPanel />
           </div>
+
+          {/* Right column: Chat (conditional) */}
+          {chatOpen && (
+            <div className="overflow-hidden">
+              <ChatPanel onClose={() => setChatOpen(false)} />
+            </div>
+          )}
         </div>
       </div>
     </PriceProvider>

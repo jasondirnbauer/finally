@@ -16,7 +16,12 @@ const STATUS_LABEL: Record<ConnectionStatus, string> = {
   disconnected: 'Disconnected',
 };
 
-export function Header() {
+interface HeaderProps {
+  onChatToggle?: () => void;
+  chatOpen?: boolean;
+}
+
+export function Header({ onChatToggle, chatOpen }: HeaderProps = {}) {
   const { status, portfolio } = usePriceContext();
 
   return (
@@ -51,6 +56,21 @@ export function Header() {
           </span>
         </div>
       </div>
+
+      {/* Chat toggle */}
+      {onChatToggle && (
+        <button
+          onClick={onChatToggle}
+          className={`px-3 py-1 rounded text-xs font-mono border transition-colors ${
+            chatOpen
+              ? 'bg-terminal-purple/20 border-terminal-purple text-terminal-purple'
+              : 'border-terminal-border text-terminal-muted hover:text-terminal-text hover:border-terminal-text'
+          }`}
+          aria-label={chatOpen ? 'Close AI chat' : 'Open AI chat'}
+        >
+          AI Chat
+        </button>
+      )}
 
       {/* Connection status */}
       <div className="flex items-center gap-2">
