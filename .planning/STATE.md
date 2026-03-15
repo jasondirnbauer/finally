@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-15T01:29:09Z"
-last_activity: 2026-03-15 — TradeBar + ChartPanel wiring complete
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-15T01:35:55Z"
+last_activity: 2026-03-15 — Portfolio visualization components complete
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -20,16 +20,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** Users can watch live streaming prices, trade a simulated portfolio, and chat with an AI assistant that understands their positions and can execute trades — all from a single browser tab with zero setup.
-**Current focus:** Phase 3 in progress — Trading + Portfolio Visualization
+**Current focus:** Phase 3 complete — Trading + Portfolio Visualization done
 
 ## Current Position
 
-Phase: 3 of 5 (Trading + Portfolio Visualization)
-Plan: 2 of 3 in current phase (03-02 complete)
-Status: Executing
-Last activity: 2026-03-15 — TradeBar + ChartPanel wiring complete
+Phase: 3 of 5 (Trading + Portfolio Visualization) -- COMPLETE
+Plan: 3 of 3 in current phase (03-03 complete)
+Status: Phase Complete
+Last activity: 2026-03-15 — Portfolio visualization components complete
 
-Progress: [███████░░░] 70%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [███████░░░] 70%
 | Phase 02 P03 | 15min | 2 tasks | 8 files |
 | Phase 03 P01 | 12min | 2 tasks | 17 files |
 | Phase 03 P02 | 3min | 2 tasks | 4 files |
+| Phase 03 P03 | 3min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 03-01]: Type renames (cash_balance->cash, pnl_pct->pnl_percent) applied as breaking changes with all consumers updated
 - [Phase 03-02]: TradeBar parses JSON detail from apiFetch error format for clean user-facing error messages
 - [Phase 03-02]: ChartPanel updated in-place (not extracted to page.tsx) since it already existed as standalone component from Plan 01
+- [Phase 03-03]: PnlChart uses 30s setInterval (not portfolio.total_value dependency) to avoid excessive API calls
+- [Phase 03-03]: Tooltip formatter uses Number(value) cast for Recharts ValueType compatibility
+- [Phase 03-03]: Portfolio area uses 3fr/2fr grid split giving chart 60% and portfolio 40% of right column
 
 ### Pending Todos
 
@@ -92,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-15T01:29:09Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-03-15T01:35:55Z
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None
