@@ -48,6 +48,18 @@ export interface ChatMessage {
 }
 
 export interface ChatActions {
-  trades?: Array<{ ticker: string; side: 'buy' | 'sell'; quantity: number; price: number }>;
-  watchlist_changes?: Array<{ ticker: string; action: 'add' | 'remove' }>;
+  trades?: Array<{
+    ticker: string;
+    side: 'buy' | 'sell';
+    quantity: number;
+    price?: number;       // present on success
+    status?: string;      // "executed" on success
+    error?: string;       // present on failure
+  }>;
+  watchlist_changes?: Array<{
+    ticker: string;
+    action: 'add' | 'remove';
+    status?: string;      // "done" on success
+    error?: string;       // present on failure
+  }>;
 }

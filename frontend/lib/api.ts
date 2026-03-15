@@ -1,4 +1,4 @@
-import type { WatchlistEntry, PortfolioSummary, PortfolioSnapshot } from './types';
+import type { WatchlistEntry, PortfolioSummary, PortfolioSnapshot, ChatActions, ChatMessage } from './types';
 
 const BASE = '';  // Same origin — all calls go to /api/*
 
@@ -59,4 +59,38 @@ export async function executeTrade(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ticker, side, quantity }),
   });
+}
+
+// --- Chat API ---
+
+export interface ChatResponse {
+  message: string;
+  trades?: ChatActions['trades'];
+  watchlist_changes?: ChatActions['watchlist_changes'];
+}
+
+export interface ChatHistoryResponse {
+  messages: Array<{
+    id: string;
+    role: 'user' | 'assistant';
+    content: string;
+    actions: string | null; // JSON string from DB
+    created_at: string;
+  }>;
+}
+
+export async function sendChatMessage(message: string): Promise<ChatResponse> {
+  return apiFetch<ChatResponse>('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message }),
+  });
+}
+
+export async function fetchChatHistory(): Promise<ChatMessage[]> {
+  const data = await apiFetch<ChatHistoryResponse>('/api/chat/history');
+  return data.messages.map((m) => ({
+    ...m,
+    actions: m.actions ? JSON.parse(m.actions) : null,
+  }));
 }
