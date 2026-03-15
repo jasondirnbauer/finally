@@ -1,14 +1,7 @@
 import { PriceProvider } from '@/context/PriceContext';
 import { Header } from '@/components/Header';
 import { Watchlist } from '@/components/Watchlist';
-
-function ChartAreaPlaceholder() {
-  return (
-    <div className="h-full bg-terminal-surface border border-terminal-border rounded flex items-center justify-center">
-      <span className="text-terminal-muted text-sm font-mono">Select a ticker to view chart</span>
-    </div>
-  );
-}
+import { ChartPanel } from '@/components/ChartPanel';
 
 function PortfolioAreaPlaceholder() {
   return (
@@ -37,7 +30,7 @@ export default function TradingTerminal() {
           {/* Right column: Chart + Portfolio grid */}
           <div className="grid grid-rows-[1fr_auto] gap-2 overflow-hidden">
             {/* Chart area (top) */}
-            <ChartAreaPlaceholder />
+            <ChartPanel />
 
             {/* Portfolio area (bottom) — reserved for Phase 3 */}
             <div className="h-48">
