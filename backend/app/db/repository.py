@@ -281,7 +281,7 @@ async def get_chat_history(limit: int = 50, user_id: str = DEFAULT_USER_ID) -> l
     try:
         cursor = await db.execute(
             "SELECT id, role, content, actions, created_at FROM chat_messages "
-            "WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
+            "WHERE user_id = ? ORDER BY created_at DESC, rowid DESC LIMIT ?",
             (user_id, limit),
         )
         rows = await cursor.fetchall()
