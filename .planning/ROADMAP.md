@@ -93,7 +93,11 @@ Plans:
   2. Backend pytest suite passes with tests covering trade execution (including edge cases), P&L calculation, LLM structured output parsing, and all API route response shapes
   3. Frontend unit tests pass covering the watchlist component, price flash animation trigger, trade bar validation, and portfolio display calculations
   4. Playwright E2E tests pass end-to-end: fresh start shows default watchlist and $10k balance, user can add/remove tickers, buy/sell shares, and the mocked AI chat returns a response
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 05-01-PLAN.md — Docker build validation, start/stop scripts review, backend pytest + frontend Jest green
+- [ ] 05-02-PLAN.md — Playwright E2E test suite
 
 ## Progress
 
@@ -107,4 +111,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Frontend Shell + Streaming | 3/3 | Complete | 2026-03-14 |
 | 3. Trading + Portfolio Visualization | 0/3 | In progress | - |
 | 4. AI Chat | 0/TBD | Not started | - |
-| 5. Docker + Testing | 0/TBD | Not started | - |
+| 5. Docker + Testing | 1/2 | In progress | - |

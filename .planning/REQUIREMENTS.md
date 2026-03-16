@@ -44,11 +44,11 @@
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Multi-stage Dockerfile — Node 20 builds frontend static export, Python 3.12 serves via FastAPI
-- [ ] **INFRA-02**: Start/stop scripts for macOS/Linux (bash) and Windows (PowerShell)
+- [x] **INFRA-01**: Multi-stage Dockerfile — Node 20 builds frontend static export, Python 3.12 serves via FastAPI
+- [x] **INFRA-02**: Start/stop scripts for macOS/Linux (bash) and Windows (PowerShell)
 - [ ] **INFRA-03**: Playwright E2E tests in test/ directory with docker-compose.test.yml
-- [ ] **INFRA-04**: Backend unit tests (pytest) for portfolio, chat, and API routes
-- [ ] **INFRA-05**: Frontend unit tests for key components
+- [x] **INFRA-04**: Backend unit tests (pytest) for portfolio, chat, and API routes
+- [x] **INFRA-05**: Frontend unit tests for key components
 
 ## v2 Requirements
 
@@ -112,11 +112,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAT-04 | Phase 4 | Complete |
 | CHAT-05 | Phase 4 | Complete |
 | CHAT-06 | Phase 4 | Complete |
-| INFRA-01 | Phase 5 | Pending |
-| INFRA-02 | Phase 5 | Pending |
+| INFRA-01 | Phase 5 | Complete |
+| INFRA-02 | Phase 5 | Complete |
 | INFRA-03 | Phase 5 | Pending |
-| INFRA-04 | Phase 5 | Pending |
-| INFRA-05 | Phase 5 | Pending |
+| INFRA-04 | Phase 5 | Complete |
+| INFRA-05 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 27 total (note: initial count of 23 was incorrect — actual count is 27)
@@ -125,4 +125,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-13*
-*Last updated: 2026-03-14 — DISP-01, DISP-02 marked complete (Phase 2 Plan 03)*
+*Last updated: 2026-03-16 — INFRA-01, INFRA-02, INFRA-04, INFRA-05 marked complete (Phase 5 Plan 01)*
