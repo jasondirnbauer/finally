@@ -11,9 +11,10 @@ interface WatchlistRowProps {
   priceHistory: number[];
   selected: boolean;
   onClick: () => void;
+  onRemove?: () => void;
 }
 
-export function WatchlistRow({ ticker, update, priceHistory, selected, onClick }: WatchlistRowProps) {
+export function WatchlistRow({ ticker, update, priceHistory, selected, onClick, onRemove }: WatchlistRowProps) {
   const [flashClass, setFlashClass] = useState('');
 
   // Key on timestamp — re-triggers even for same price value
@@ -40,7 +41,7 @@ export function WatchlistRow({ ticker, update, priceHistory, selected, onClick }
       data-selected={selected ? 'true' : 'false'}
       onClick={onClick}
       className={[
-        'grid grid-cols-[80px_60px_1fr_80px] items-center px-2 py-1.5 cursor-pointer rounded',
+        'grid grid-cols-[80px_60px_1fr_80px_20px] items-center px-2 py-1.5 cursor-pointer rounded',
         'hover:bg-terminal-border/30 transition-colors',
         selected ? 'bg-terminal-blue/10 ring-1 ring-terminal-blue/30' : '',
         flashClass,
@@ -58,6 +59,15 @@ export function WatchlistRow({ ticker, update, priceHistory, selected, onClick }
           ? `${formatChange(update.change)} (${formatChangePct((update.change / update.previous_price) * 100)})`
           : '\u2014'}
       </span>
+      {onRemove && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onRemove(); }}
+          className="text-terminal-muted hover:text-red-400 text-xs font-mono leading-none ml-1"
+          aria-label={`Remove ${ticker}`}
+        >
+          x
+        </button>
+      )}
     </div>
   );
 }

@@ -25,10 +25,12 @@ export function TradeBar() {
   const [ticker, setTicker] = useState('');
   const [quantity, setQuantity] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [confirmation, setConfirmation] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleTrade(side: 'buy' | 'sell') {
     setError(null);
+    setConfirmation(null);
 
     const trimmedTicker = ticker.trim();
     const parsedQty = parseFloat(quantity);
@@ -39,7 +41,10 @@ export function TradeBar() {
 
     setLoading(true);
     try {
-      await executeTrade(trimmedTicker.toUpperCase(), side, parsedQty);
+      const result = await executeTrade(trimmedTicker.toUpperCase(), side, parsedQty);
+      setConfirmation(
+        `${side.toUpperCase()} ${parsedQty} ${trimmedTicker.toUpperCase()} @ $${result.trade.price.toFixed(2)}`
+      );
       setTicker('');
       setQuantity('');
       await refreshPortfolio();
@@ -81,6 +86,11 @@ export function TradeBar() {
       >
         Sell
       </button>
+      {confirmation && (
+        <span className="text-green-400 text-xs font-mono ml-2" data-testid="trade-confirmation">
+          {confirmation}
+        </span>
+      )}
       {error && (
         <span className="text-red-400 text-xs font-mono ml-2" data-testid="trade-error">
           {error}

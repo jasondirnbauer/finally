@@ -5,10 +5,16 @@ test.describe("AI Chat (mocked)", () => {
     await page.goto("/");
 
     // Wait for the page to load
-    await expect(page.getByText("AI Assistant")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText("Live")).toBeVisible({ timeout: 15_000 });
+
+    // Open the chat panel by clicking the AI Chat button in the header
+    await page.getByRole("button", { name: /AI Chat/i }).click();
+
+    // Wait for the chat panel to appear
+    await expect(page.getByText("AI Assistant")).toBeVisible({ timeout: 5_000 });
 
     // Type a message in the chat input
-    const chatInput = page.getByPlaceholder("Ask about your portfolio...");
+    const chatInput = page.getByPlaceholder("Ask FinAlly anything...");
     await chatInput.fill("hello");
     await page.getByRole("button", { name: "Send" }).click();
 
@@ -25,15 +31,18 @@ test.describe("AI Chat (mocked)", () => {
     await page.goto("/");
 
     // Wait for page load
-    await expect(page.getByText("AI Assistant")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText("Live")).toBeVisible({ timeout: 15_000 });
+
+    // Open the chat panel
+    await page.getByRole("button", { name: /AI Chat/i }).click();
+    await expect(page.getByText("AI Assistant")).toBeVisible({ timeout: 5_000 });
 
     // Ask about portfolio
-    const chatInput = page.getByPlaceholder("Ask about your portfolio...");
+    const chatInput = page.getByPlaceholder("Ask FinAlly anything...");
     await chatInput.fill("show my portfolio");
     await page.getByRole("button", { name: "Send" }).click();
 
     // Mock should respond with portfolio info — look for "portfolio is worth" or "cash"
-    // The exact values depend on prior test state, so just check the response pattern
     await expect(
       page.getByText("portfolio is worth", { exact: false })
         .or(page.getByText("in cash", { exact: false }))

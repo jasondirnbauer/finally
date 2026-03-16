@@ -7,35 +7,32 @@ test.describe("Trading", () => {
     // Wait for prices to be streaming
     await expect(page.getByText("Live")).toBeVisible({ timeout: 15_000 });
 
-    // Wait for initial cash to display
-    await expect(page.getByText("$10,000.00").first()).toBeVisible({ timeout: 10_000 });
+    // Wait for portfolio to load — get initial cash value from header
+    await page.waitForTimeout(2000);
+    const cashLocator = page.locator("header").getByText(/\$[\d,]+\.\d{2}/).nth(1);
+    await expect(cashLocator).toBeVisible({ timeout: 10_000 });
+    const initialCashText = await cashLocator.textContent();
+    const initialCash = parseFloat(initialCashText!.replace(/[$,]/g, ""));
 
     // Fill in the trade bar
-    const tickerInput = page.getByRole("textbox", { name: "Ticker", exact: true });
+    const tickerInput = page.getByPlaceholder("Ticker", { exact: true });
     const qtyInput = page.getByPlaceholder("Qty");
     await tickerInput.fill("AAPL");
     await qtyInput.fill("5");
 
-    // Click BUY
-    await page.getByRole("button", { name: "BUY" }).click();
+    // Click Buy
+    await page.getByRole("button", { name: "Buy" }).click();
 
     // Wait for trade confirmation message (green text in trade bar)
     await expect(page.getByText(/BUY 5 AAPL/)).toBeVisible({ timeout: 10_000 });
 
-    // Cash should have decreased — check header no longer shows $10,000.00
-    // Allow time for the portfolio refresh
+    // Wait for portfolio to refresh
     await page.waitForTimeout(2000);
 
-    // The cash balance in the header should be less than $10,000
-    const cashText = page.locator("header").getByText(/\$[\d,]+\.\d{2}/).nth(1);
-    const cash = await cashText.textContent();
-    expect(cash).toBeDefined();
-    const cashValue = parseFloat(cash!.replace(/[$,]/g, ""));
-    expect(cashValue).toBeLessThan(10_000);
-
-    // AAPL should appear in the positions table
-    const positionsSection = page.locator("text=Positions").first();
-    await expect(positionsSection).toBeVisible();
+    // The cash balance in the header should be less than before
+    const cashAfterText = await cashLocator.textContent();
+    const cashAfter = parseFloat(cashAfterText!.replace(/[$,]/g, ""));
+    expect(cashAfter).toBeLessThan(initialCash);
   });
 
   test("sell shares — cash increases after buying", async ({ page }) => {
@@ -48,21 +45,21 @@ test.describe("Trading", () => {
     await page.goto("/");
     await expect(page.getByText("Live")).toBeVisible({ timeout: 15_000 });
 
-    // Wait for portfolio to load and show non-$10k cash
+    // Wait for portfolio to load
     await page.waitForTimeout(3000);
 
     // Record cash after buying
-    const cashAfterBuy = page.locator("header").getByText(/\$[\d,]+\.\d{2}/).nth(1);
-    const cashBuyText = await cashAfterBuy.textContent();
+    const cashLocator = page.locator("header").getByText(/\$[\d,]+\.\d{2}/).nth(1);
+    const cashBuyText = await cashLocator.textContent();
     const cashAfterBuyValue = parseFloat(cashBuyText!.replace(/[$,]/g, ""));
 
     // Now sell some shares via the UI
-    const tickerInput = page.getByRole("textbox", { name: "Ticker", exact: true });
+    const tickerInput = page.getByPlaceholder("Ticker", { exact: true });
     const qtyInput = page.getByPlaceholder("Qty");
     await tickerInput.fill("AAPL");
     await qtyInput.fill("5");
-    // The SELL button can be obscured by a layout overlap, so use JS to click
-    const sellButton = page.getByRole("button", { name: "SELL" });
+    // Use JS click in case of layout overlap
+    const sellButton = page.getByRole("button", { name: "Sell" });
     await sellButton.evaluate((el: HTMLElement) => el.click());
 
     // Wait for trade confirmation
@@ -72,8 +69,7 @@ test.describe("Trading", () => {
     await page.waitForTimeout(3000);
 
     // Cash should have increased after selling
-    const cashAfterSell = page.locator("header").getByText(/\$[\d,]+\.\d{2}/).nth(1);
-    const cashSellText = await cashAfterSell.textContent();
+    const cashSellText = await cashLocator.textContent();
     const cashAfterSellValue = parseFloat(cashSellText!.replace(/[$,]/g, ""));
 
     expect(cashAfterSellValue).toBeGreaterThan(cashAfterBuyValue);

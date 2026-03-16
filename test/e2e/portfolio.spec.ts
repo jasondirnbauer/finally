@@ -4,8 +4,8 @@ test.describe("Portfolio display", () => {
   test("P&L chart area renders", async ({ page }) => {
     await page.goto("/");
 
-    // The P&L section heading should be visible
-    await expect(page.getByRole("heading", { name: "Portfolio P&L" })).toBeVisible({
+    // The P&L section label should be visible (uppercase span text)
+    await expect(page.getByText("P&L")).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -13,11 +13,10 @@ test.describe("Portfolio display", () => {
   test("heatmap and positions areas render", async ({ page }) => {
     await page.goto("/");
 
-    // With no additional trades, one of these should be visible
-    // Either the heatmap empty state or a heading if positions exist from earlier tests
+    // Either the heatmap empty state or the heatmap label should be visible
     const heatmapEmpty = page.getByText("No positions to display");
-    const heatmapHeading = page.getByRole("heading", { name: "Portfolio Heatmap" });
-    await expect(heatmapEmpty.or(heatmapHeading)).toBeVisible({ timeout: 15_000 });
+    const heatmapLabel = page.getByText("Heatmap");
+    await expect(heatmapEmpty.or(heatmapLabel).first()).toBeVisible({ timeout: 15_000 });
   });
 
   test("positions table shows data after a trade", async ({ page }) => {
@@ -33,8 +32,8 @@ test.describe("Portfolio display", () => {
     // Wait for portfolio data to load
     await page.waitForTimeout(3000);
 
-    // The Positions heading should now be visible
-    await expect(page.getByRole("heading", { name: "Positions" })).toBeVisible({
+    // The Positions label should be visible
+    await expect(page.getByText("Positions")).toBeVisible({
       timeout: 10_000,
     });
 
