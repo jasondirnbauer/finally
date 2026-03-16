@@ -46,7 +46,7 @@
 
 - [x] **INFRA-01**: Multi-stage Dockerfile — Node 20 builds frontend static export, Python 3.12 serves via FastAPI
 - [x] **INFRA-02**: Start/stop scripts for macOS/Linux (bash) and Windows (PowerShell)
-- [ ] **INFRA-03**: Playwright E2E tests in test/ directory with docker-compose.test.yml
+- [x] **INFRA-03**: Playwright E2E tests in test/ directory with docker-compose.test.yml
 - [x] **INFRA-04**: Backend unit tests (pytest) for portfolio, chat, and API routes
 - [x] **INFRA-05**: Frontend unit tests for key components
 
@@ -114,7 +114,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAT-06 | Phase 4 | Complete |
 | INFRA-01 | Phase 5 | Complete |
 | INFRA-02 | Phase 5 | Complete |
-| INFRA-03 | Phase 5 | Pending |
+| INFRA-03 | Phase 5 | Complete |
 | INFRA-04 | Phase 5 | Complete |
 | INFRA-05 | Phase 5 | Complete |
 

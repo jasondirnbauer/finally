@@ -15,9 +15,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 0: Market Data** - GBM simulator, PriceCache, SSE stream, Massive API — COMPLETE
 - [x] **Phase 1: Backend Hardening** - Fix race condition, extract TradeService, wire LLM watchlist, add snapshot task (completed 2026-03-14)
 - [x] **Phase 2: Frontend Shell + Streaming** - Next.js project, dark terminal layout, SSE hook, watchlist panel, header (completed 2026-03-14)
-- [ ] **Phase 3: Trading + Portfolio Visualization** - Trade bar, positions table, price chart, heatmap, P&L chart, sparklines
-- [ ] **Phase 4: AI Chat** - Chat panel, LLM integration, inline trade/watchlist confirmations, loading state
-- [ ] **Phase 5: Docker + Testing** - Multi-stage Dockerfile, start/stop scripts, backend unit tests, frontend unit tests, Playwright E2E
+- [x] **Phase 3: Trading + Portfolio Visualization** - Trade bar, positions table, price chart, heatmap, P&L chart, sparklines (completed 2026-03-15)
+- [x] **Phase 4: AI Chat** - Chat panel, LLM integration, inline trade/watchlist confirmations, loading state (completed 2026-03-15)
+- [x] **Phase 5: Docker + Testing** - Multi-stage Dockerfile, start/stop scripts, backend unit tests, frontend unit tests, Playwright E2E (completed 2026-03-16)
 
 ## Phase Details
 
@@ -67,9 +67,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Install charting deps, fix type/API mismatches, build Sparkline + PriceChart components
-- [ ] 03-02-PLAN.md — Build TradeBar component, wire PriceChart into page layout for ticker selection and live updates
-- [ ] 03-03-PLAN.md — Build PortfolioHeatmap, PnlChart, PositionsTable components and wire into page layout
+- [x] 03-01-PLAN.md — Install charting deps, fix type/API mismatches, build Sparkline + PriceChart components
+- [x] 03-02-PLAN.md — Build TradeBar component, wire PriceChart into page layout for ticker selection and live updates
+- [x] 03-03-PLAN.md — Build PortfolioHeatmap, PnlChart, PositionsTable components and wire into page layout
 
 ### Phase 4: AI Chat
 **Goal**: Users can have a natural language conversation with an AI assistant that understands their portfolio and can execute trades and watchlist changes on their behalf
@@ -97,7 +97,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md — Docker build validation, start/stop scripts review, backend pytest + frontend Jest green
-- [ ] 05-02-PLAN.md — Playwright E2E test suite
+- [x] 05-02-PLAN.md — Playwright E2E test suite
 
 ## Progress
 
@@ -109,6 +109,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 0. Market Data | - | Complete | 2026-03-13 |
 | 1. Backend Hardening | 2/2 | Complete   | 2026-03-14 |
 | 2. Frontend Shell + Streaming | 3/3 | Complete | 2026-03-14 |
-| 3. Trading + Portfolio Visualization | 0/3 | In progress | - |
-| 4. AI Chat | 0/TBD | Not started | - |
-| 5. Docker + Testing | 1/2 | In progress | - |
+| 3. Trading + Portfolio Visualization | 3/3 | Complete | 2026-03-15 |
+| 4. AI Chat | 2/2 | Complete | 2026-03-15 |
+| 5. Docker + Testing | 2/2 | Complete   | 2026-03-16 |
